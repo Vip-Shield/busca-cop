@@ -3,120 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de COP's</title>
+    <title>Buscador de COP's - 3ª UPP</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Adicionando esta linha no HTML -->
-<p id="no-results" style="display: none;">Nenhum nome encontrado.</p>
 </head>
 <body>
-    
+    <header class="main-header">
+        <img src="caveira-armada.png" alt="Logo" class="logo">
+        <div class="header-text">
+            <h1>3ª UPP / 19º BPM</h1>
+            <p>CIA UPP PAVÃO - SISTEMA DE BUSCA DE COP'S</p>
+        </div>
+    </header>
 
-<div><h1 align="center"><img src="caveira-armada.png" alt="Foto da Caveira Armada" class="logo">Lista das COP'S - 3ª UPP/19ºBPM - CIA UPP PAVÃO</h1></div>
+    <main class="container">
+        <div class="search-box">
+            <label for="search-input">Pesquisar Câmera:</label>
+            <input type="text" id="search-input" placeholder="Digite o Serial ou Número da COP...">
+            <p id="counter">Mostrando <strong>92</strong> câmeras</p>
+        </div>
 
+        <p id="no-results" class="hidden">Nenhuma câmera encontrada com esse critério.</p>
 
-<br>
-<br>
-    <div class="search-container"><strong>Busca por COP'S:</strong>
-        <input type="text" id="search-input" placeholder="Digite o número de série da câmera que deseja buscar...">
-    </div>
+        <ul id="name-list" class="grid-list">
+            <li><img src="cop.png" class="profile-pic"> <span>SERIAL: <strong>J30912170</strong><br><small>NÚMERO 01</small></span></li>
+            <li><img src="cop.png" class="profile-pic"> <span>SERIAL: <strong>J32612213</strong><br><small>NÚMERO 02</small></span></li>
+	    <li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490249</strong><br><small>NÚMERO 03</small></span></li>
+        
+	<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J29664976</strong><br><small>NÚMERO 04</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841557</strong><br><small>NÚMERO 05</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970470</strong><br><small>NÚMERO 06</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J12957404</strong><br><small>NÚMERO 07</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841883</strong><br><small>NÚMERO 08</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970469</strong><br><small>NÚMERO 09</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J33583656</strong><br><small>NÚMERO 10</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841818</strong><br><small>NÚMERO 11</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841837</strong><br><small>NÚMERO 12</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841835</strong><br><small>NÚMERO 13</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841897</strong><br><small>NÚMERO 14</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343839</strong><br><small>NÚMERO 15</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841896</strong><br><small>NÚMERO 16</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841805</strong><br><small>NÚMERO 17</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841970</strong><br><small>NÚMERO 18</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970743</strong><br><small>NÚMERO 19</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30914478</strong><br><small>NÚMERO 20</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343825</strong><br><small>NÚMERO 21</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343563</strong><br><small>NÚMERO 22</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970632</strong><br><small>NÚMERO 23</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343829</strong><br><small>NÚMERO 24</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343802</strong><br><small>NÚMERO 25</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343884</strong><br><small>NÚMERO 26</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841891</strong><br><small>NÚMERO 27</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32840732</strong><br><small>NÚMERO 28</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343562</strong><br><small>NÚMERO 29</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841836</strong><br><small>NÚMERO 30</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343661</strong><br><small>NÚMERO 31</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30912754</strong><br><small>NÚMERO 32</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343525</strong><br><small>NÚMERO 33</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J29498816</strong><br><small>NÚMERO 34</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J16658824</strong><br><small>NÚMERO 35</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32612224</strong><br><small>NÚMERO 36</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J16658680</strong><br><small>NÚMERO 37</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J24884140</strong><br><small>NÚMERO 38</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970487</strong><br><small>NÚMERO 39</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490071</strong><br><small>NÚMERO 40</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J26650212</strong><br><small>NÚMERO 41</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30912782</strong><br><small>NÚMERO 42</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343801</strong><br><small>NÚMERO 43</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J15597153</strong><br><small>NÚMERO 44</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343817</strong><br><small>NÚMERO 45</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30313360</strong><br><small>NÚMERO 46</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30313246</strong><br><small>NÚMERO 47</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841854</strong><br><small>NÚMERO 48</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30912767</strong><br><small>NÚMERO 49</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343883</strong><br><small>NÚMERO 50</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343611</strong><br><small>NÚMERO 51</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490047</strong><br><small>NÚMERO 52</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J14263648</strong><br><small>NÚMERO 53</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343797</strong><br><small>NÚMERO 54</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970464</strong><br><small>NÚMERO 55</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841809</strong><br><small>NÚMERO 56</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343881</strong><br><small>NÚMERO 57</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841804</strong><br><small>NÚMERO 58</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343524</strong><br><small>NÚMERO 59</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31489939</strong><br><small>NÚMERO 60</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841767</strong><br><small>NÚMERO 61</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841816</strong><br><small>NÚMERO 62</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841887</strong><br><small>NÚMERO 63</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30313272</strong><br><small>NÚMERO 64</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841817</strong><br><small>NÚMERO 65</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490051</strong><br><small>NÚMERO 66</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841858</strong><br><small>NÚMERO 67</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841901</strong><br><small>NÚMERO 68</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30913442</strong><br><small>NÚMERO 69</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32969661</strong><br><small>NÚMERO 70</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343874</strong><br><small>NÚMERO 71</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30913642</strong><br><small>NÚMERO 72</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970624</strong><br><small>NÚMERO 73</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>AD1817400</strong><br><small>NÚMERO 74</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841839</strong><br><small>NÚMERO 75</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841771</strong><br><small>NÚMERO 76</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343609</strong><br><small>NÚMERO 77</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970471</strong><br><small>NÚMERO 78</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343819</strong><br><small>NÚMERO 79</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490241</strong><br><small>NÚMERO 80</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490221</strong><br><small>NÚMERO 81</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32969887</strong><br><small>NÚMERO 82</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32969887</strong><br><small>NÚMERO 83</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841810</strong><br><small>NÚMERO 84</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343568</strong><br><small>NÚMERO 85</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490054</strong><br><small>NÚMERO 86</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31489954</strong><br><small>NÚMERO 87</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841827</strong><br><small>NÚMERO 88</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30913648</strong><br><small>NÚMERO 89</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343573</strong><br><small>NÚMERO 90</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490044</strong><br><small>NÚMERO 91</small></span></li>
+<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841857</strong><br><small>NÚMERO 92</small></span></li>
 
-    <ul id="name-list">
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30912170 - NÚMERO 01</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32612213 - NÚMERO 02</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490249 - NÚMERO 03</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J29664976 - NÚMERO 04</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841557 - NÚMERO 05</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970470 - NÚMERO 06</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J12957404 - NÚMERO 07</li> 
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841883 - NÚMERO 08</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970469 - NÚMERO 09</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J33583656 - NÚMERO 10</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841818 - NÚMERO 11</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J29498922 - NÚMERO 12</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841835 - NÚMERO 13</li>  
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841897 - NÚMERO 14</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343839 - NÚMERO 15</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841896 - NÚMERO 16</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841805 - NÚMERO 17</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841970 - NÚMERO 18</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970743 - NÚMERO 19</li>   
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30914478 - NÚMERO 20</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343825 - NÚMERO 21</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343563 - NÚMERO 22</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970632 - NÚMERO 23</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343829 - NÚMERO 24</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343802 - NÚMERO 25</li> 
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343884 - NÚMERO 26</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841891 - NÚMERO 27</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32840732 - NÚMERO 28</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343562 - NÚMERO 29</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841836 - NÚMERO 30</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343661 - NÚMERO 31</li>  
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30912754 - NÚMERO 32</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343525 - NÚMERO 33</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J29498816 - NÚMERO 34</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J16658824 - NÚMERO 35</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32612224 - NÚMERO 36</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J16658680 - NÚMERO 37</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J24884140 - NÚMERO 38</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970487 - NÚMERO 39</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490071 - NÚMERO 40</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J26650212 - NÚMERO 41</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30912782 - NÚMERO 42</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343801 - NÚMERO 43</li> 
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J15597153 - NÚMERO 44</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343817 - NÚMERO 45</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30313360 - NÚMERO 46</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30313246 - NÚMERO 47</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841854 - NÚMERO 48</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30912767 - NÚMERO 49</li>  
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343883 - NÚMERO 50</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343611 - NÚMERO 51</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490047 - NÚMERO 52</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J14263648 - NÚMERO 53</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343797 - NÚMERO 54</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970464 - NÚMERO 55</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841809 - NÚMERO 56</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343881 - NÚMERO 57</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841804 - NÚMERO 58</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343524 - NÚMERO 59</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31489939 - NÚMERO 60</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841767 - NÚMERO 61</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841816 - NÚMERO 62</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841887 - NÚMERO 63</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30313272 - NÚMERO 64</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841817 - NÚMERO 65</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490051 - NÚMERO 66</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841858 - NÚMERO 67</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841901 - NÚMERO 68</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30913442 - NÚMERO 69</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32969661 - NÚMERO 70</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343874 - NÚMERO 71</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30913642 - NÚMERO 72</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970624 - NÚMERO 73</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: AD1817400 - NÚMERO 74</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841839 - NÚMERO 75</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841771 - NÚMERO 76</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343609 - NÚMERO 77</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32970471 - NÚMERO 78</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343819 - NÚMERO 79</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490241 - NÚMERO 80</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490221 - NÚMERO 81</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32969887 - NÚMERO 82</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32969887 - NÚMERO 83</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841810 - NÚMERO 84</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343568 - NÚMERO 85</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490054 - NÚMERO 86</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31489954 - NÚMERO 87</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841827 - NÚMERO 88</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J30913648 - NÚMERO 89</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32343573 - NÚMERO 90</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J31490044 - NÚMERO 91</li>
-        <li><img src="cop.png" alt="COP" class="profile-pic">SERIAL COP: J32841857 - NÚMERO 92</li>
             </ul>
+    </main>
 
-          <div class="footer"><footer>- Direitos reservados a BitBlaze webdesign -</footer></div>
+    <footer class="main-footer">
+        <p>&copy; 2026 - Desenvolvido por BitBlaze Webdesign</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
-
 </html>

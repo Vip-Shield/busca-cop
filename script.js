@@ -73,3 +73,32 @@ document.querySelectorAll('.remove-btn').forEach(button => {
     });
 });
 
+
+
+const searchInput = document.getElementById('search-input');
+const items = document.querySelectorAll('#name-list li');
+const counter = document.getElementById('counter');
+const noResults = document.getElementById('no-results');
+
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+searchInput.addEventListener('input', function() {
+    const filter = removeAccents(this.value.toLowerCase());
+    let visibleCount = 0;
+
+    items.forEach(item => {
+        const text = removeAccents(item.textContent.toLowerCase());
+        if (text.includes(filter)) {
+            item.classList.remove('hidden');
+            visibleCount++;
+        } else {
+            item.classList.add('hidden');
+        }
+    });
+
+    // Atualiza contador e mensagem de "não encontrado"
+    counter.innerHTML = `Mostrando <strong>${visibleCount}</strong> câmeras`;
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+});
