@@ -4,130 +4,704 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador de COP's - 3ª UPP</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" type="imagex/png" href="../IMAGENS/caveira.ico">
+
+    <style>
+        /* ESTILO GERAL */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            padding-top: 180px; /* Espaço para o cabeçalho fixo */
+        }
+
+        /* --- CABEÇALHO FIXO --- */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #001f3f;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .main-header {
+            position: relative; /* Necessário para centralizar os itens com absolute */
+            height: 80px;       /* Altura fixa para alinhar verticalmente */
+            background-color: #001f3f;
+            border-bottom: 1px solid #004080;
+        }
+
+        /* --- ÁREA CENTRAL (LOGO + TEXTO) --- */
+        .header-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%); /* Centraliza exato no meio X e Y */
+            display: flex;
+            align-items: center;
+            white-space: nowrap; /* Evita que o texto quebre linha feio */
+        }
+
+        .logo {
+            width: 50px;
+            height: auto;
+            margin-right: 15px;
+            transition: transform 0.2s;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 5px #ffd700);
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-text p {
+            margin: 2px 0 0 0;
+            font-size: 0.8rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* --- MENU SUSPENSO (DIREITA) --- */
+        .user-menu {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%); /* Centraliza verticalmente */
+            z-index: 1002;
+        }
+
+        .menu-icon {
+            width: 45px;
+            height: auto;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 5px #ffd700);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-content a:last-child { border-bottom: none; }
+        
+        .dropdown-content a:hover {
+            background-color: #001f3f;
+            color: #ffd700;
+        }
+
+        .show { display: block; }
+
+        /* --- BARRA DE BUSCA --- */
+        .search-box {
+            background-color: #001226;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 3px solid #b8860b;
+        }
+
+        .search-box input {
+            width: 90%;
+            max-width: 500px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #004080;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 5px #ffd700;
+        }
+
+        /* --- LISTA DE CARDS --- */
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .grid-list li {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .grid-list li:hover {
+            transform: translateY(-3px);
+            border-color: #001f3f;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .grid-list span {
+            display: block;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .grid-list strong {
+            font-size: 1.1rem;
+            color: #001f3f;
+            display: block;
+            margin: 5px 0;
+        }
+
+        .grid-list small {
+            color: #666;
+            font-weight: bold;
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* --- BOTÃO DE ESTADO --- */
+        .btn-status {
+            margin-top: 10px;
+            width: 100%;
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .status-ok {
+            background-color: #e2e8f0;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        .status-ok:hover { background-color: #cbd5e1; }
+
+        .status-alert {
+            background-color: #b91c1c;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        .status-alert:hover { background-color: #991b1b; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(185, 28, 28, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); }
+        }
+
+        .hidden { display: none; }
+        
+        #no-results {
+            text-align: center;
+            color: #b91c1c;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 25px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);} 
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover { color: black; }
+
+        .modal-header h2 {
+            margin-top: 0;
+            color: #001f3f;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        textarea, .input-form {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+        
+        textarea { height: 120px; resize: vertical; }
+        
+        textarea:focus, .input-form:focus {
+            border-color: #001f3f;
+            outline: none;
+        }
+
+        .modal-footer { text-align: right; }
+
+        .btn-save {
+            background-color: #001f3f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-save:hover { background-color: #003366; }
+
+        .btn-clear {
+            background-color: #ef4444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        .main-footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #666;
+            border-top: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header">
-        <img src="caveira-armada.png" alt="Logo" class="logo">
-        <div class="header-text">
-            <h1>3ª UPP / 19º BPM</h1>
-            <p>CIA UPP PAVÃO - SISTEMA DE BUSCA DE COP'S</p>
+
+    <div class="fixed-header">
+        <header class="main-header">
+            
+            <div class="header-center">
+                <a href="../dashboard.html"><img src="caveira-armada.png" alt="Logo" class="logo" title="Voltar ao Painel"></a>
+                <div class="header-text">
+                    <h1>3ª UPP / 19º BPM</h1>
+                    <p>CIA UPP PAVÃO - SISTEMA DE BUSCA</p>
+                </div>
+            </div>
+
+            <div class="user-menu">
+                <img src="escudo.png" alt="Menu" class="menu-icon" onclick="toggleMenu()" title="Opções">
+                <div id="dropdownMenu" class="dropdown-content">
+                    <a href="#" onclick="abrirModalRegistro()">+ Registrar Nova COP</a>
+                    <a href="#" onclick="exportarDados()">💾 Salvar Backup</a>
+                    <a href="#" onclick="triggerImport()">📂 Importar Backup</a>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="🔍 Digite o Serial ou Número da COP...">
         </div>
-    </header>
+    </div>
+
+    <input type="file" id="fileInput" style="display: none;" onchange="importarDados(this)" accept=".json">
 
     <main class="container">
-        <div class="search-box">
-            <label for="search-input">Pesquisar Câmera:</label>
-            <input type="text" id="search-input" placeholder="Digite o Serial ou Número da COP...">
-            
-        </div>
-
         <p id="no-results" class="hidden">Nenhuma câmera encontrada com esse critério.</p>
-
         <ul id="name-list" class="grid-list">
-            <li><img src="cop.png" class="profile-pic"> <span>SERIAL: <strong>J30912170</strong><br><small>NÚMERO 01</small></span></li>
-            <li><img src="cop.png" class="profile-pic"> <span>SERIAL: <strong>J32612213</strong><br><small>NÚMERO 02</small></span></li>
-	    <li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490249</strong><br><small>NÚMERO 03</small></span></li>
-        
-	<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J29664976</strong><br><small>NÚMERO 04</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841557</strong><br><small>NÚMERO 05</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970470</strong><br><small>NÚMERO 06</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J12957404</strong><br><small>NÚMERO 07</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841883</strong><br><small>NÚMERO 08</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970469</strong><br><small>NÚMERO 09</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J33583656</strong><br><small>NÚMERO 10</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841818</strong><br><small>NÚMERO 11</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841837</strong><br><small>NÚMERO 12</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841835</strong><br><small>NÚMERO 13</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841897</strong><br><small>NÚMERO 14</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343839</strong><br><small>NÚMERO 15</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841896</strong><br><small>NÚMERO 16</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841805</strong><br><small>NÚMERO 17</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841970</strong><br><small>NÚMERO 18</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970743</strong><br><small>NÚMERO 19</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30914478</strong><br><small>NÚMERO 20</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343825</strong><br><small>NÚMERO 21</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343563</strong><br><small>NÚMERO 22</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970632</strong><br><small>NÚMERO 23</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343829</strong><br><small>NÚMERO 24</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343802</strong><br><small>NÚMERO 25</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343884</strong><br><small>NÚMERO 26</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841891</strong><br><small>NÚMERO 27</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32840732</strong><br><small>NÚMERO 28</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343562</strong><br><small>NÚMERO 29</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841836</strong><br><small>NÚMERO 30</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343661</strong><br><small>NÚMERO 31</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30912754</strong><br><small>NÚMERO 32</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343525</strong><br><small>NÚMERO 33</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J29498816</strong><br><small>NÚMERO 34</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J16658824</strong><br><small>NÚMERO 35</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32612224</strong><br><small>NÚMERO 36</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J16658680</strong><br><small>NÚMERO 37</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J24884140</strong><br><small>NÚMERO 38</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970487</strong><br><small>NÚMERO 39</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490071</strong><br><small>NÚMERO 40</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J26650212</strong><br><small>NÚMERO 41</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30912782</strong><br><small>NÚMERO 42</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343801</strong><br><small>NÚMERO 43</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J15597153</strong><br><small>NÚMERO 44</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343817</strong><br><small>NÚMERO 45</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30313360</strong><br><small>NÚMERO 46</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30313246</strong><br><small>NÚMERO 47</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841854</strong><br><small>NÚMERO 48</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30912767</strong><br><small>NÚMERO 49</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343883</strong><br><small>NÚMERO 50</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343611</strong><br><small>NÚMERO 51</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490047</strong><br><small>NÚMERO 52</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J14263648</strong><br><small>NÚMERO 53</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343797</strong><br><small>NÚMERO 54</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970464</strong><br><small>NÚMERO 55</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841809</strong><br><small>NÚMERO 56</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343881</strong><br><small>NÚMERO 57</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841804</strong><br><small>NÚMERO 58</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343524</strong><br><small>NÚMERO 59</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31489939</strong><br><small>NÚMERO 60</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841767</strong><br><small>NÚMERO 61</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841816</strong><br><small>NÚMERO 62</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841887</strong><br><small>NÚMERO 63</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30313272</strong><br><small>NÚMERO 64</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841817</strong><br><small>NÚMERO 65</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490051</strong><br><small>NÚMERO 66</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841858</strong><br><small>NÚMERO 67</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841901</strong><br><small>NÚMERO 68</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30913442</strong><br><small>NÚMERO 69</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32969661</strong><br><small>NÚMERO 70</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343874</strong><br><small>NÚMERO 71</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30913642</strong><br><small>NÚMERO 72</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970624</strong><br><small>NÚMERO 73</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>AD1817400</strong><br><small>NÚMERO 74</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841839</strong><br><small>NÚMERO 75</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841771</strong><br><small>NÚMERO 76</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343609</strong><br><small>NÚMERO 77</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32970471</strong><br><small>NÚMERO 78</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343819</strong><br><small>NÚMERO 79</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490241</strong><br><small>NÚMERO 80</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490221</strong><br><small>NÚMERO 81</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32969887</strong><br><small>NÚMERO 82</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32969887</strong><br><small>NÚMERO 83</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841810</strong><br><small>NÚMERO 84</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343568</strong><br><small>NÚMERO 85</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490054</strong><br><small>NÚMERO 86</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31489954</strong><br><small>NÚMERO 87</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841827</strong><br><small>NÚMERO 88</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J30913648</strong><br><small>NÚMERO 89</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32343573</strong><br><small>NÚMERO 90</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J31490044</strong><br><small>NÚMERO 91</small></span></li>
-<li><img src="cop.png" alt="COP" class="profile-pic"><span>SERIAL: <strong>J32841857</strong><br><small>NÚMERO 92</small></span></li>
-
             </ul>
     </main>
+
+    <div id="obsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal('obsModal')">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">Observação</h2>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 0.9rem; color: #666;">Descreva abaixo a avaria ou observação:</p>
+                <textarea id="obsInput" placeholder="Ex: Botão travado, lente riscada... (Deixe em branco se estiver OK)"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-clear" onclick="limparObs()">Limpar / OK</button>
+                <button class="btn-save" onclick="salvarObs()">Salvar Observação</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal('registerModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Registrar Nova Câmera</h2>
+            </div>
+            <div class="modal-body">
+                <label style="font-weight:bold; color:#001f3f;">Serial:</label>
+                <input type="text" id="newSerial" class="input-form" placeholder="Ex: J12345678">
+                
+                <label style="font-weight:bold; color:#001f3f;">Número:</label>
+                <input type="text" id="newNum" class="input-form" placeholder="Ex: 99">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-clear" style="background-color: #aaa;" onclick="fecharModal('registerModal')">Cancelar</button>
+                <button class="btn-save" onclick="salvarNovoRegistro()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="main-footer">
         <p>&copy; 2026 - Desenvolvido por BitBlaze Webdesign</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // --- DADOS ORIGINAIS ---
+        const defaultCameras = [
+            { serial: "J30912170", num: "01" },
+            { serial: "J32612213", num: "02" },
+            { serial: "J31490249", num: "03" },
+            { serial: "J29664976", num: "04" },
+            { serial: "J32841557", num: "05" },
+            { serial: "J32970470", num: "06" }, 
+            { serial: "J12957404", num: "07" },
+            { serial: "J32841883", num: "08" },
+            { serial: "J32970469", num: "09" },
+            { serial: "J33583656", num: "10" },
+            { serial: "J32841818", num: "11" },
+            { serial: "J29498922", num: "12" },
+            { serial: "J32841835", num: "13" },
+            { serial: "J32841897", num: "14" },
+            { serial: "J32343839", num: "15" },
+            { serial: "J32841896", num: "16" },
+            { serial: "J32841805", num: "17" },
+            { serial: "J32841970", num: "18" },
+            { serial: "J32970743", num: "19" },
+            { serial: "J30914478", num: "20" },
+            { serial: "J32343825", num: "21" },
+            { serial: "J32343563", num: "22" },
+            { serial: "J32970632", num: "23" },
+            { serial: "J32343829", num: "24" },
+            { serial: "J32343802", num: "25" },
+            { serial: "J32343884", num: "26" },
+            { serial: "J32841891", num: "27" },
+            { serial: "J32840732", num: "28" },
+            { serial: "J32343562", num: "29" },
+            { serial: "J32841836", num: "30" },
+            { serial: "J32343661", num: "31" },
+            { serial: "J30912754", num: "32" },
+            { serial: "J32343525", num: "33" },
+            { serial: "J27896557", num: "34" },
+            { serial: "J16658824", num: "35" },
+            { serial: "J32612224", num: "36" },
+            { serial: "J16658680", num: "37" },
+            { serial: "J24884140", num: "38" },
+            { serial: "J32970487", num: "39" },
+            { serial: "J31490071", num: "40" },
+            { serial: "J26650212", num: "41" },
+            { serial: "J30912782", num: "42" },
+            { serial: "J32343801", num: "43" },
+            { serial: "J15597153", num: "44" },
+            { serial: "J32343817", num: "45" },
+            { serial: "J30313360", num: "46" },
+            { serial: "J30313246", num: "47" },
+            { serial: "J32841854", num: "48" },
+            { serial: "J30912767", num: "49" },
+            { serial: "J32343883", num: "50" },
+            { serial: "J32343611", num: "51" },
+            { serial: "J31490047", num: "52" },
+            { serial: "J14263648", num: "53" },
+            { serial: "J32343797", num: "54" },
+            { serial: "J32970464", num: "55" },
+            { serial: "J32841809", num: "56" },
+            { serial: "J32343881", num: "57" },
+            { serial: "J32841804", num: "58" },
+            { serial: "J32343524", num: "59" },
+            { serial: "J31489939", num: "60" },
+            { serial: "J32841767", num: "61" },
+            { serial: "J32841816", num: "62" },
+            { serial: "J32841887", num: "63" },
+            { serial: "J30313272", num: "64" },
+            { serial: "J32841817", num: "65" },
+            { serial: "J31490051", num: "66" },
+            { serial: "J32841858", num: "67" },
+            { serial: "J32841901", num: "68" },
+            { serial: "J30913442", num: "69" },
+            { serial: "J32969661", num: "70" },
+            { serial: "J32343874", num: "71" },
+            { serial: "J30913642", num: "72" },
+            { serial: "J32970624", num: "73" },
+            { serial: "AD1817400", num: "74" },
+            { serial: "J32841839", num: "75" },
+            { serial: "J32841771", num: "76" },
+            { serial: "J32343609", num: "77" },
+            { serial: "J32970471", num: "78" },
+            { serial: "J32343819", num: "79" },
+            { serial: "J31490241", num: "80" },
+            { serial: "J31490221", num: "81" },
+            { serial: "J32969887", num: "82" },
+            { serial: "J32969887", num: "83" },
+            { serial: "J32841810", num: "84" },
+            { serial: "J32343568", num: "85" },
+            { serial: "J31490054", num: "86" },
+            { serial: "J31489954", num: "87" },
+            { serial: "J32841827", num: "88" },
+            { serial: "J30913648", num: "89" },
+            { serial: "J32343573", num: "90" },
+            { serial: "J31490044", num: "91" },        
+            { serial: "J32841857", num: "92" }
+        ];
+
+        // --- INICIALIZAÇÃO DA LISTA ---
+        let cameras = JSON.parse(localStorage.getItem('myCameras')) || defaultCameras;
+        const listElement = document.getElementById('name-list');
+        let currentSerial = null;
+
+        // 1. RENDERIZAR LISTA
+        function renderList() {
+            listElement.innerHTML = ""; 
+            
+            cameras.forEach(cam => {
+                const savedObs = localStorage.getItem('obs_' + cam.serial);
+                
+                let btnClass = "status-ok";
+                let btnText = "Verificar / Relatar";
+                
+                if (savedObs && savedObs.trim() !== "") {
+                    btnClass = "status-alert";
+                    btnText = "⚠️ VER AVARIA";
+                }
+
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <img src="cop.png" class="profile-pic"> 
+                    <span>SERIAL: <strong>${cam.serial}</strong><small>NÚMERO ${cam.num}</small></span>
+                    <button id="btn-${cam.serial}" class="btn-status ${btnClass}" onclick="abrirObs('${cam.serial}', '${cam.num}')">
+                        ${btnText}
+                    </button>
+                `;
+                listElement.appendChild(li);
+            });
+        }
+
+        // 2. BUSCA
+        document.getElementById('search-input').addEventListener('keyup', function() {
+            const termo = this.value.toUpperCase();
+            const itens = listElement.getElementsByTagName('li');
+            let encontrou = false;
+
+            for (let i = 0; i < itens.length; i++) {
+                const texto = itens[i].innerText;
+                if (texto.toUpperCase().indexOf(termo) > -1) {
+                    itens[i].style.display = "";
+                    encontrou = true;
+                } else {
+                    itens[i].style.display = "none";
+                }
+            }
+            document.getElementById('no-results').style.display = encontrou ? "none" : "block";
+        });
+
+        // 3. MENU E SISTEMA DE BACKUP
+        function toggleMenu() {
+            document.getElementById("dropdownMenu").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-icon')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+            if (event.target == document.getElementById("obsModal")) fecharModal('obsModal');
+            if (event.target == document.getElementById("registerModal")) fecharModal('registerModal');
+        }
+
+        // --- FUNÇÃO EXPORTAR (SALVAR BACKUP) ---
+        function exportarDados() {
+            const cams = JSON.parse(localStorage.getItem('myCameras')) || defaultCameras;
+            const obs = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('obs_')) {
+                    obs[key] = localStorage.getItem(key);
+                }
+            }
+            const backupData = { cameras: cams, observations: obs };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "backup_cops_" + new Date().toISOString().slice(0,10) + ".json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        // --- FUNÇÃO IMPORTAR (CARREGAR BACKUP) ---
+        function triggerImport() {
+            document.getElementById('fileInput').click();
+        }
+
+        function importarDados(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (importedData.cameras) {
+                        localStorage.setItem('myCameras', JSON.stringify(importedData.cameras));
+                        cameras = importedData.cameras; 
+                    }
+                    if (importedData.observations) {
+                        for (const [key, value] of Object.entries(importedData.observations)) {
+                            localStorage.setItem(key, value);
+                        }
+                    }
+                    alert("Backup restaurado com sucesso! A página será atualizada.");
+                    renderList();
+                    location.reload(); 
+                } catch (err) {
+                    alert("Erro ao ler o arquivo. Certifique-se que é um arquivo .json válido.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // 4. MODAL REGISTRO
+        function abrirModalRegistro() {
+            document.getElementById("registerModal").style.display = "block";
+            document.getElementById("newSerial").value = "";
+            document.getElementById("newNum").value = "";
+        }
+
+        function salvarNovoRegistro() {
+            const s = document.getElementById("newSerial").value.trim().toUpperCase();
+            const n = document.getElementById("newNum").value.trim();
+            if (s === "" || n === "") {
+                alert("Por favor, preencha o Serial e o Número.");
+                return;
+            }
+            cameras.push({ serial: s, num: n });
+            localStorage.setItem('myCameras', JSON.stringify(cameras));
+            renderList();
+            fecharModal('registerModal');
+            alert("Câmera " + n + " registrada com sucesso!");
+        }
+
+        // 5. MODAL OBSERVAÇÃO
+        function abrirObs(serial, num) {
+            currentSerial = serial;
+            document.getElementById("modalTitle").innerText = `Câmera Nº ${num} (Serial: ${serial})`;
+            const savedText = localStorage.getItem('obs_' + serial) || "";
+            document.getElementById("obsInput").value = savedText;
+            document.getElementById("obsModal").style.display = "block";
+            document.getElementById("obsInput").focus();
+        }
+
+        function salvarObs() {
+            if(!currentSerial) return;
+            const texto = document.getElementById("obsInput").value.trim();
+            if(texto) {
+                localStorage.setItem('obs_' + currentSerial, texto);
+            } else {
+                localStorage.removeItem('obs_' + currentSerial);
+            }
+            fecharModal('obsModal');
+            renderList(); 
+        }
+
+        function limparObs() {
+            document.getElementById("obsInput").value = "";
+            salvarObs();
+        }
+
+        function fecharModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // INICIALIZAÇÃO
+        renderList(); 
+    </script>
 </body>
-
 </html>
-
