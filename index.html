@@ -13,7 +13,7 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            padding-top: 180px; /* Espaço para o cabeçalho fixo */
+            padding-top: 240px; 
         }
 
         /* --- CABEÇALHO FIXO --- */
@@ -29,8 +29,8 @@
         }
 
         .main-header {
-            position: relative; /* Necessário para centralizar os itens com absolute */
-            height: 80px;       /* Altura fixa para alinhar verticalmente */
+            position: relative;
+            height: 80px;       
             background-color: #001f3f;
             border-bottom: 1px solid #004080;
         }
@@ -40,10 +40,10 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%); /* Centraliza exato no meio X e Y */
+            transform: translate(-50%, -50%);
             display: flex;
             align-items: center;
-            white-space: nowrap; /* Evita que o texto quebre linha feio */
+            white-space: nowrap; 
         }
 
         .logo {
@@ -77,7 +77,7 @@
             position: absolute;
             right: 20px;
             top: 50%;
-            transform: translateY(-50%); /* Centraliza verticalmente */
+            transform: translateY(-50%); 
             z-index: 1002;
         }
 
@@ -126,7 +126,7 @@
 
         .show { display: block; }
 
-        /* --- BARRA DE BUSCA --- */
+        /* --- BARRA DE BUSCA E CHECKLIST --- */
         .search-box {
             background-color: #001226;
             padding: 15px;
@@ -143,12 +143,52 @@
             font-size: 16px;
             text-align: center;
             outline: none;
+            margin-bottom: 10px;
         }
 
         .search-box input:focus {
             border-color: #ffd700;
             box-shadow: 0 0 5px #ffd700;
         }
+
+        /* --- BARRA DE RESUMO DO CHECKLIST --- */
+        .checklist-summary {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .summary-text {
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .summary-text .faltam { color: #ef4444; font-weight: bold; font-size: 1.1rem; }
+        .summary-text .conferidas { color: #10b981; font-weight: bold; }
+        .summary-text .retidas { color: #9ca3af; font-weight: bold; } /* Cor para as retidas no painel */
+
+        .btn-panel {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .btn-filter { background-color: #ffd700; color: #001f3f; }
+        .btn-filter:hover { background-color: #e6c200; }
+        
+        .btn-reset { background-color: #ef4444; color: white; }
+        .btn-reset:hover { background-color: #dc2626; }
 
         /* --- LISTA DE CARDS --- */
         .container {
@@ -173,7 +213,7 @@
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border: 1px solid #ddd;
-            transition: transform 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
             position: relative;
         }
 
@@ -182,37 +222,38 @@
             border-color: #001f3f;
         }
 
+        /* ESTILO PARA CARD CONFERIDO (NA RUMB) */
+        .card-checked {
+            background-color: #ecfdf5 !important;
+            border: 2px solid #10b981 !important;
+            opacity: 0.85;
+        }
+
+        /* NOVO: ESTILO PARA CARD RETIDO/PERMANENTE (BAIXA, EXTRAVIO) */
+        .card-retained {
+            background-color: #1a1a1a !important;
+            border: 2px solid #000 !important;
+            color: #d1d5db !important;
+        }
+        .card-retained strong { color: #fff !important; }
+        .card-retained span { color: #d1d5db !important; }
+        .card-retained small { background: #374151 !important; color: #9ca3af !important; }
+        .card-retained .profile-pic { filter: grayscale(100%) opacity(0.4); } /* Câmera em P&B para dar ar de inativa */
+
         .profile-pic {
             width: 80px;
             height: 80px;
             object-fit: contain;
             margin-bottom: 10px;
+            transition: 0.3s;
         }
 
-        .grid-list span {
-            display: block;
-            font-size: 0.9rem;
-            color: #333;
-        }
+        .grid-list span { display: block; font-size: 0.9rem; color: #333; }
+        .grid-list strong { font-size: 1.1rem; color: #001f3f; display: block; margin: 5px 0; }
+        .grid-list small { color: #666; font-weight: bold; background: #eee; padding: 2px 6px; border-radius: 4px; }
 
-        .grid-list strong {
-            font-size: 1.1rem;
-            color: #001f3f;
-            display: block;
-            margin: 5px 0;
-        }
-
-        .grid-list small {
-            color: #666;
-            font-weight: bold;
-            background: #eee;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        /* --- BOTÃO DE ESTADO --- */
+        /* --- BOTÕES DO CARD --- */
         .btn-status {
-            margin-top: 10px;
             width: 100%;
             padding: 6px;
             border: none;
@@ -223,19 +264,25 @@
             transition: background 0.3s;
         }
 
-        .status-ok {
-            background-color: #e2e8f0;
-            color: #475569;
-            border: 1px solid #cbd5e1;
-        }
+        /* Botão Avaria */
+        .status-ok { background-color: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; margin-top: 8px;}
         .status-ok:hover { background-color: #cbd5e1; }
-
-        .status-alert {
-            background-color: #b91c1c;
-            color: white;
-            animation: pulse 2s infinite;
-        }
+        .status-alert { background-color: #b91c1c; color: white; animation: pulse 2s infinite; margin-top: 8px;}
         .status-alert:hover { background-color: #991b1b; }
+
+        /* Botões Checklist (Divididos) */
+        .btn-group { display: flex; gap: 5px; margin-top: 5px; }
+        
+        .chk-uncheck { background-color: #f8fafc; color: #64748b; border: 1px dashed #94a3b8; flex: 1; }
+        .chk-uncheck:hover { background-color: #e2e8f0; }
+        .chk-checked { background-color: #10b981; color: white; flex: 1; border: 1px solid #059669; }
+        .chk-checked:hover { background-color: #059669; }
+
+        /* Botões Retido/Permanente */
+        .ret-uncheck { background-color: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; flex: 1; }
+        .ret-uncheck:hover { background-color: #e2e8f0; }
+        .ret-checked { background-color: #000; color: #ffd700; flex: 1; border: 1px solid #ffd700; }
+        .ret-checked:hover { background-color: #333; }
 
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.4); }
@@ -254,109 +301,38 @@
 
         /* --- MODAL --- */
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 2000; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(3px);
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
         }
 
         .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto; 
-            padding: 25px;
-            border: 1px solid #888;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            position: relative;
-            animation: fadeIn 0.3s;
+            background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888;
+            width: 90%; max-width: 500px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative; animation: fadeIn 0.3s;
         }
 
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(-20px);} 
-            to {opacity: 1; transform: translateY(0);}
-        }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
 
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
         .close-btn:hover { color: black; }
+        .modal-header h2 { margin-top: 0; color: #001f3f; border-bottom: 2px solid #ffd700; padding-bottom: 10px; display: inline-block; }
 
-        .modal-header h2 {
-            margin-top: 0;
-            color: #001f3f;
-            border-bottom: 2px solid #ffd700;
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-
-        textarea, .input-form {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            font-family: inherit;
-            margin-bottom: 15px;
-        }
-        
+        textarea, .input-form { width: 100%; padding: 10px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px; }
         textarea { height: 120px; resize: vertical; }
-        
-        textarea:focus, .input-form:focus {
-            border-color: #001f3f;
-            outline: none;
-        }
-
+        textarea:focus, .input-form:focus { border-color: #001f3f; outline: none; }
         .modal-footer { text-align: right; }
 
-        .btn-save {
-            background-color: #001f3f;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
+        .btn-save { background-color: #001f3f; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
         .btn-save:hover { background-color: #003366; }
+        .btn-clear { background-color: #ef4444; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-right: 10px; }
 
-        .btn-clear {
-            background-color: #ef4444;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-right: 10px;
-        }
-
-        .main-footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #666;
-            border-top: 1px solid #ccc;
-        }
+        .main-footer { text-align: center; padding: 20px; margin-top: 20px; font-size: 0.8rem; color: #666; border-top: 1px solid #ccc; }
     </style>
 </head>
 <body>
 
     <div class="fixed-header">
         <header class="main-header">
-            
             <div class="header-center">
                 <a href="../dashboard.html"><img src="caveira-armada.png" alt="Logo" class="logo" title="Voltar ao Painel"></a>
                 <div class="header-text">
@@ -373,20 +349,24 @@
                     <a href="#" onclick="triggerImport()">📂 Importar Backup</a>
                 </div>
             </div>
-
         </header>
 
         <div class="search-box">
             <input type="text" id="search-input" placeholder="🔍 Digite o Serial ou Número da COP...">
+            
+            <div class="checklist-summary">
+                <span class="summary-text" id="summary-text">Carregando dados...</span>
+                <button class="btn-panel btn-filter" id="btn-filter" onclick="toggleFaltantes()">Filtrar Faltantes</button>
+                <button class="btn-panel btn-reset" onclick="zerarConferencia()">Zerar Turno</button>
+            </div>
         </div>
     </div>
 
     <input type="file" id="fileInput" style="display: none;" onchange="importarDados(this)" accept=".json">
 
     <main class="container">
-        <p id="no-results" class="hidden">Nenhuma câmera encontrada com esse critério.</p>
-        <ul id="name-list" class="grid-list">
-            </ul>
+        <p id="no-results" class="hidden">Nenhuma câmera visível ou encontrada.</p>
+        <ul id="name-list" class="grid-list"></ul>
     </main>
 
     <div id="obsModal" class="modal">
@@ -396,8 +376,8 @@
                 <h2 id="modalTitle">Observação</h2>
             </div>
             <div class="modal-body">
-                <p style="font-size: 0.9rem; color: #666;">Descreva abaixo a avaria ou observação:</p>
-                <textarea id="obsInput" placeholder="Ex: Botão travado, lente riscada... (Deixe em branco se estiver OK)"></textarea>
+                <p style="font-size: 0.9rem; color: #666;">Descreva abaixo a avaria ou motivo da baixa/retenção:</p>
+                <textarea id="obsInput" placeholder="Ex: Baixa por tela quebrada, Extraviada no APF 123... (Deixe em branco se estiver OK)"></textarea>
             </div>
             <div class="modal-footer">
                 <button class="btn-clear" onclick="limparObs()">Limpar / OK</button>
@@ -431,137 +411,162 @@
     </footer>
 
     <script>
-        // --- DADOS ORIGINAIS ---
         const defaultCameras = [
-            { serial: "J30912170", num: "01" },
-            { serial: "J32612213", num: "02" },
-            { serial: "J31490249", num: "03" },
-            { serial: "J29664976", num: "04" },
-            { serial: "J32841557", num: "05" },
-            { serial: "J32970470", num: "06" }, 
-            { serial: "J12957404", num: "07" },
-            { serial: "J32841883", num: "08" },
-            { serial: "J32970469", num: "09" },
-            { serial: "J33583656", num: "10" },
-            { serial: "J32841818", num: "11" },
-            { serial: "J29498922", num: "12" },
-            { serial: "J32841835", num: "13" },
-            { serial: "J32841897", num: "14" },
-            { serial: "J32343839", num: "15" },
-            { serial: "J32841896", num: "16" },
-            { serial: "J32841805", num: "17" },
-            { serial: "J32841970", num: "18" },
-            { serial: "J32970743", num: "19" },
-            { serial: "J30914478", num: "20" },
-            { serial: "J32343825", num: "21" },
-            { serial: "J32343563", num: "22" },
-            { serial: "J32970632", num: "23" },
-            { serial: "J32343829", num: "24" },
-            { serial: "J32343802", num: "25" },
-            { serial: "J32343884", num: "26" },
-            { serial: "J32841891", num: "27" },
-            { serial: "J32840732", num: "28" },
-            { serial: "J32343562", num: "29" },
-            { serial: "J32841836", num: "30" },
-            { serial: "J32343661", num: "31" },
-            { serial: "J30912754", num: "32" },
-            { serial: "J32343525", num: "33" },
-            { serial: "J27896557", num: "34" },
-            { serial: "J16658824", num: "35" },
-            { serial: "J32612224", num: "36" },
-            { serial: "J16658680", num: "37" },
-            { serial: "J24884140", num: "38" },
-            { serial: "J32970487", num: "39" },
-            { serial: "J31490071", num: "40" },
-            { serial: "J26650212", num: "41" },
-            { serial: "J30912782", num: "42" },
-            { serial: "J32343801", num: "43" },
-            { serial: "J15597153", num: "44" },
-            { serial: "J32343817", num: "45" },
-            { serial: "J30313360", num: "46" },
-            { serial: "J30313246", num: "47" },
-            { serial: "J32841854", num: "48" },
-            { serial: "J30912767", num: "49" },
-            { serial: "J32343883", num: "50" },
-            { serial: "J32343611", num: "51" },
-            { serial: "J31490047", num: "52" },
-            { serial: "J14263648", num: "53" },
-            { serial: "J32343797", num: "54" },
-            { serial: "J32970464", num: "55" },
-            { serial: "J32841809", num: "56" },
-            { serial: "J32343881", num: "57" },
-            { serial: "J32841804", num: "58" },
-            { serial: "J32343524", num: "59" },
-            { serial: "J31489939", num: "60" },
-            { serial: "J32841767", num: "61" },
-            { serial: "J32841816", num: "62" },
-            { serial: "J32841887", num: "63" },
-            { serial: "J30313272", num: "64" },
-            { serial: "J32841817", num: "65" },
-            { serial: "J31490051", num: "66" },
-            { serial: "J32841858", num: "67" },
-            { serial: "J32841901", num: "68" },
-            { serial: "J30913442", num: "69" },
-            { serial: "J32969661", num: "70" },
-            { serial: "J32343874", num: "71" },
-            { serial: "J30913642", num: "72" },
-            { serial: "J32970624", num: "73" },
-            { serial: "AD1817400", num: "74" },
-            { serial: "J32841839", num: "75" },
-            { serial: "J32841771", num: "76" },
-            { serial: "J32343609", num: "77" },
-            { serial: "J32970471", num: "78" },
-            { serial: "J32343819", num: "79" },
-            { serial: "J31490241", num: "80" },
-            { serial: "J31490221", num: "81" },
-            { serial: "J32969887", num: "82" },
-            { serial: "J32969887", num: "83" },
-            { serial: "J32841810", num: "84" },
-            { serial: "J32343568", num: "85" },
-            { serial: "J31490054", num: "86" },
-            { serial: "J31489954", num: "87" },
-            { serial: "J32841827", num: "88" },
-            { serial: "J30913648", num: "89" },
-            { serial: "J32343573", num: "90" },
-            { serial: "J31490044", num: "91" },        
-            { serial: "J32841857", num: "92" }
+            { serial: "J30912170", num: "01" }, { serial: "J32612213", num: "02" }, { serial: "GL7563713", num: "03" }, { serial: "J29664976", num: "04" },
+            { serial: "J32841557", num: "05" }, { serial: "J32970470", num: "06" }, { serial: "J12957404", num: "07" }, { serial: "J32841883", num: "08" },
+            { serial: "J32970469", num: "09" }, { serial: "J33583656", num: "10" }, { serial: "J32841818", num: "11" }, { serial: "J29498922", num: "12" },
+            { serial: "J32841835", num: "13" }, { serial: "J32841897", num: "14" }, { serial: "J32343839", num: "15" }, { serial: "J32841896", num: "16" },
+            { serial: "J32841805", num: "17" }, { serial: "J32841970", num: "18" }, { serial: "J32970743", num: "19" }, { serial: "J30914478", num: "20" },
+            { serial: "J32343825", num: "21" }, { serial: "J32343563", num: "22" }, { serial: "J32970632", num: "23" }, { serial: "J32343829", num: "24" },
+            { serial: "J32343802", num: "25" }, { serial: "J32343884", num: "26" }, { serial: "J32841891", num: "27" }, { serial: "J32840732", num: "28" },
+            { serial: "J32343562", num: "29" }, { serial: "J32841836", num: "30" }, { serial: "J32343661", num: "31" }, { serial: "J30912754", num: "32" },
+            { serial: "J32343525", num: "33" }, { serial: "J27896557", num: "34" }, { serial: "J16658824", num: "35" }, { serial: "J32612224", num: "36" },
+            { serial: "J16658680", num: "37" }, { serial: "J24884140", num: "38" }, { serial: "J32970487", num: "39" }, { serial: "J31490071", num: "40" },
+            { serial: "J26650212", num: "41" }, { serial: "J30912782", num: "42" }, { serial: "J32343801", num: "43" }, { serial: "J15597153", num: "44" },
+            { serial: "J32343817", num: "45" }, { serial: "J30313360", num: "46" }, { serial: "J30313246", num: "47" }, { serial: "J32841854", num: "48" },
+            { serial: "J30912767", num: "49" }, { serial: "J32343883", num: "50" }, { serial: "J32343611", num: "51" }, { serial: "J31490047", num: "52" },
+            { serial: "J14263648", num: "53" }, { serial: "J32343797", num: "54" }, { serial: "J32970464", num: "55" }, { serial: "J32841809", num: "56" },
+            { serial: "J32343881", num: "57" }, { serial: "J32841804", num: "58" }, { serial: "J32343524", num: "59" }, { serial: "J31489939", num: "60" },
+            { serial: "J32841767", num: "61" }, { serial: "J32841816", num: "62" }, { serial: "J32841887", num: "63" }, { serial: "J30313272", num: "64" },
+            { serial: "J32841817", num: "65" }, { serial: "J31490051", num: "66" }, { serial: "J32841858", num: "67" }, { serial: "J32841901", num: "68" },
+            { serial: "J30913442", num: "69" }, { serial: "J32969661", num: "70" }, { serial: "J32343874", num: "71" }, { serial: "J30913642", num: "72" },
+            { serial: "J32970624", num: "73" }, { serial: "AD1817400", num: "74" }, { serial: "J32841839", num: "75" }, { serial: "J32841771", num: "76" },
+            { serial: "J32343609", num: "77" }, { serial: "J32970471", num: "78" }, { serial: "J32343819", num: "79" }, { serial: "J31490241", num: "80" },
+            { serial: "J31490221", num: "81" }, { serial: "J32841762", num: "82" }, { serial: "J32969887", num: "83" }, { serial: "J32841810", num: "84" },
+            { serial: "J32343568", num: "85" }, { serial: "J31490054", num: "86" }, { serial: "J31489954", num: "87" }, { serial: "J32841827", num: "88" },
+            { serial: "J30913648", num: "89" }, { serial: "J32343573", num: "90" }, { serial: "J31490044", num: "91" }, { serial: "J32841857", num: "92" }
         ];
 
-        // --- INICIALIZAÇÃO DA LISTA ---
         let cameras = JSON.parse(localStorage.getItem('myCameras')) || defaultCameras;
         const listElement = document.getElementById('name-list');
         let currentSerial = null;
+        let filtroFaltantesAtivo = false;
 
-        // 1. RENDERIZAR LISTA
         function renderList() {
             listElement.innerHTML = ""; 
+            let qtdConferidas = 0;
+            let qtdRetidas = 0;
             
             cameras.forEach(cam => {
                 const savedObs = localStorage.getItem('obs_' + cam.serial);
+                let isChecked = localStorage.getItem('chk_' + cam.serial) === 'true';
+                let isRetained = localStorage.getItem('ret_' + cam.serial) === 'true';
                 
-                let btnClass = "status-ok";
-                let btnText = "Verificar / Relatar";
-                
-                if (savedObs && savedObs.trim() !== "") {
-                    btnClass = "status-alert";
-                    btnText = "⚠️ VER AVARIA";
+                // Se está retida, não pode estar conferida no turno
+                if (isRetained) {
+                    qtdRetidas++;
+                    if(isChecked) {
+                        localStorage.removeItem('chk_' + cam.serial);
+                        isChecked = false;
+                    }
+                } else if (isChecked) {
+                    qtdConferidas++;
                 }
 
+                // Lógica de Ocultar Faltantes (Esconde quem tá conferida e quem é permanente da tela)
+                if (filtroFaltantesAtivo && (isChecked || isRetained)) return;
+
+                // 1. Estilo da Avaria
+                let btnObsClass = "status-ok";
+                let btnObsText = "Verificar / Relatar";
+                if (savedObs && savedObs.trim() !== "") {
+                    btnObsClass = "status-alert";
+                    btnObsText = "⚠️ VER OBS/AVARIA";
+                }
+
+                // 2. Estilo do Card Principal
+                let cardClass = "";
+                if (isRetained) cardClass = "card-retained";
+                else if (isChecked) cardClass = "card-checked";
+
+                // 3. Estilo Botão Check
+                let btnChkClass = isChecked ? "chk-checked" : "chk-uncheck";
+                let btnChkText = isChecked ? "✅ Conferida" : "⚪ Conferir";
+
+                // 4. Estilo Botão Retida
+                let btnRetClass = isRetained ? "ret-checked" : "ret-uncheck";
+                let btnRetText = isRetained ? "⚫ Retida" : "Reter";
+
                 const li = document.createElement('li');
+                li.className = cardClass;
                 li.innerHTML = `
                     <img src="cop.png" class="profile-pic"> 
                     <span>SERIAL: <strong>${cam.serial}</strong><small>NÚMERO ${cam.num}</small></span>
-                    <button id="btn-${cam.serial}" class="btn-status ${btnClass}" onclick="abrirObs('${cam.serial}', '${cam.num}')">
-                        ${btnText}
+                    
+                    <button class="btn-status ${btnObsClass}" onclick="abrirObs('${cam.serial}', '${cam.num}')">
+                        ${btnObsText}
                     </button>
+                    
+                    <div class="btn-group">
+                        <button class="btn-status ${btnChkClass}" onclick="toggleCheck('${cam.serial}')" ${isRetained ? 'disabled' : ''} title="Marcar como presente na RUMB hoje">
+                            ${btnChkText}
+                        </button>
+                        <button class="btn-status ${btnRetClass}" onclick="toggleReter('${cam.serial}')" title="Baixa, Extravio ou Acautelada">
+                            ${btnRetText}
+                        </button>
+                    </div>
                 `;
                 listElement.appendChild(li);
             });
+
+            atualizarPainelResumo(qtdConferidas, qtdRetidas, cameras.length);
         }
 
-        // 2. BUSCA
-        document.getElementById('search-input').addEventListener('keyup', function() {
-            const termo = this.value.toUpperCase();
+        function toggleCheck(serial) {
+            const isChecked = localStorage.getItem('chk_' + serial) === 'true';
+            if (isChecked) localStorage.removeItem('chk_' + serial);
+            else localStorage.setItem('chk_' + serial, 'true');
+            
+            renderList();
+            executarBusca(); 
+        }
+
+        function toggleReter(serial) {
+            const isRetained = localStorage.getItem('ret_' + serial) === 'true';
+            if (isRetained) {
+                localStorage.removeItem('ret_' + serial);
+            } else {
+                localStorage.setItem('ret_' + serial, 'true');
+                localStorage.removeItem('chk_' + serial); // Remove do checklist diário se for retida
+            }
+            renderList();
+            executarBusca();
+        }
+
+        function atualizarPainelResumo(conferidas, retidas, total) {
+            // As faltantes são o total MENOS o que tá conferido e MENOS o que é Permanente/Retido
+            const faltam = total - conferidas - retidas;
+            document.getElementById('summary-text').innerHTML = 
+                `Total: <strong>${total}</strong> | <span class="conferidas">✅ ${conferidas}</span> | <span class="retidas">⚫ ${retidas}</span> | <span class="faltam">❌ Faltam: ${faltam}</span>`;
+        }
+
+        function toggleFaltantes() {
+            filtroFaltantesAtivo = !filtroFaltantesAtivo;
+            const btn = document.getElementById('btn-filter');
+            if (filtroFaltantesAtivo) {
+                btn.innerText = "Mostrar Todas";
+                btn.style.backgroundColor = "#e2e8f0";
+            } else {
+                btn.innerText = "Filtrar Faltantes";
+                btn.style.backgroundColor = "#ffd700";
+            }
+            renderList();
+            executarBusca();
+        }
+
+        function zerarConferencia() {
+            if(confirm("ATENÇÃO: Deseja iniciar uma nova conferência de turno? Isso vai zerar as câmeras 'Conferidas', mas manterá as 'Retidas/Permanentes' intocadas.")) {
+                cameras.forEach(cam => {
+                    localStorage.removeItem('chk_' + cam.serial);
+                    // Não removemos o 'ret_' (Retidas) porque baixa/extravio é permanente.
+                });
+                renderList();
+                executarBusca();
+            }
+        }
+
+        function executarBusca() {
+            const termo = document.getElementById('search-input').value.toUpperCase();
             const itens = listElement.getElementsByTagName('li');
             let encontrou = false;
 
@@ -574,39 +579,36 @@
                     itens[i].style.display = "none";
                 }
             }
-            document.getElementById('no-results').style.display = encontrou ? "none" : "block";
-        });
-
-        // 3. MENU E SISTEMA DE BACKUP
-        function toggleMenu() {
-            document.getElementById("dropdownMenu").classList.toggle("show");
+            document.getElementById('no-results').style.display = (encontrou || itens.length === 0) ? "none" : "block";
         }
+        
+        document.getElementById('search-input').addEventListener('keyup', executarBusca);
+
+        // --- EXPORTAR E IMPORTAR COM OS NOVOS DADOS ---
+        function toggleMenu() { document.getElementById("dropdownMenu").classList.toggle("show"); }
 
         window.onclick = function(event) {
             if (!event.target.matches('.menu-icon')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
+                    if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
                 }
             }
             if (event.target == document.getElementById("obsModal")) fecharModal('obsModal');
             if (event.target == document.getElementById("registerModal")) fecharModal('registerModal');
         }
 
-        // --- FUNÇÃO EXPORTAR (SALVAR BACKUP) ---
         function exportarDados() {
             const cams = JSON.parse(localStorage.getItem('myCameras')) || defaultCameras;
-            const obs = {};
+            const dadosExtra = {};
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.startsWith('obs_')) {
-                    obs[key] = localStorage.getItem(key);
+                // Salva avarias (obs_), checklist (chk_) e retenções permanentes (ret_)
+                if (key.startsWith('obs_') || key.startsWith('chk_') || key.startsWith('ret_')) {
+                    dadosExtra[key] = localStorage.getItem(key);
                 }
             }
-            const backupData = { cameras: cams, observations: obs };
+            const backupData = { cameras: cams, extras: dadosExtra };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData));
             const downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", dataStr);
@@ -616,10 +618,7 @@
             downloadAnchorNode.remove();
         }
 
-        // --- FUNÇÃO IMPORTAR (CARREGAR BACKUP) ---
-        function triggerImport() {
-            document.getElementById('fileInput').click();
-        }
+        function triggerImport() { document.getElementById('fileInput').click(); }
 
         function importarDados(input) {
             const file = input.files[0];
@@ -631,15 +630,19 @@
                     const importedData = JSON.parse(e.target.result);
                     if (importedData.cameras) {
                         localStorage.setItem('myCameras', JSON.stringify(importedData.cameras));
-                        cameras = importedData.cameras; 
                     }
+                    if (importedData.extras) { 
+                        for (const [key, value] of Object.entries(importedData.extras)) {
+                            localStorage.setItem(key, value);
+                        }
+                    }
+                    // Retrocompatibilidade
                     if (importedData.observations) {
                         for (const [key, value] of Object.entries(importedData.observations)) {
                             localStorage.setItem(key, value);
                         }
                     }
-                    alert("Backup restaurado com sucesso! A página será atualizada.");
-                    renderList();
+                    alert("Backup restaurado com sucesso!");
                     location.reload(); 
                 } catch (err) {
                     alert("Erro ao ler o arquivo. Certifique-se que é um arquivo .json válido.");
@@ -648,7 +651,7 @@
             reader.readAsText(file);
         }
 
-        // 4. MODAL REGISTRO
+        // --- MODAIS ---
         function abrirModalRegistro() {
             document.getElementById("registerModal").style.display = "block";
             document.getElementById("newSerial").value = "";
@@ -658,10 +661,7 @@
         function salvarNovoRegistro() {
             const s = document.getElementById("newSerial").value.trim().toUpperCase();
             const n = document.getElementById("newNum").value.trim();
-            if (s === "" || n === "") {
-                alert("Por favor, preencha o Serial e o Número.");
-                return;
-            }
+            if (s === "" || n === "") return alert("Preencha Serial e Número.");
             cameras.push({ serial: s, num: n });
             localStorage.setItem('myCameras', JSON.stringify(cameras));
             renderList();
@@ -669,12 +669,10 @@
             alert("Câmera " + n + " registrada com sucesso!");
         }
 
-        // 5. MODAL OBSERVAÇÃO
         function abrirObs(serial, num) {
             currentSerial = serial;
             document.getElementById("modalTitle").innerText = `Câmera Nº ${num} (Serial: ${serial})`;
-            const savedText = localStorage.getItem('obs_' + serial) || "";
-            document.getElementById("obsInput").value = savedText;
+            document.getElementById("obsInput").value = localStorage.getItem('obs_' + serial) || "";
             document.getElementById("obsModal").style.display = "block";
             document.getElementById("obsInput").focus();
         }
@@ -682,11 +680,8 @@
         function salvarObs() {
             if(!currentSerial) return;
             const texto = document.getElementById("obsInput").value.trim();
-            if(texto) {
-                localStorage.setItem('obs_' + currentSerial, texto);
-            } else {
-                localStorage.removeItem('obs_' + currentSerial);
-            }
+            if(texto) localStorage.setItem('obs_' + currentSerial, texto);
+            else localStorage.removeItem('obs_' + currentSerial);
             fecharModal('obsModal');
             renderList(); 
         }
@@ -696,9 +691,7 @@
             salvarObs();
         }
 
-        function fecharModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
+        function fecharModal(modalId) { document.getElementById(modalId).style.display = "none"; }
 
         // INICIALIZAÇÃO
         renderList(); 
