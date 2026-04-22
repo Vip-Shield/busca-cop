@@ -172,7 +172,7 @@
 
         .summary-text .faltam { color: #ef4444; font-weight: bold; font-size: 1.1rem; }
         .summary-text .conferidas { color: #10b981; font-weight: bold; }
-        .summary-text .retidas { color: #9ca3af; font-weight: bold; } /* Cor para as retidas no painel */
+        .summary-text .retidas { color: #9ca3af; font-weight: bold; } 
 
         .btn-panel {
             padding: 6px 12px;
@@ -222,14 +222,12 @@
             border-color: #001f3f;
         }
 
-        /* ESTILO PARA CARD CONFERIDO (NA RUMB) */
         .card-checked {
             background-color: #ecfdf5 !important;
             border: 2px solid #10b981 !important;
             opacity: 0.85;
         }
 
-        /* NOVO: ESTILO PARA CARD RETIDO/PERMANENTE (BAIXA, EXTRAVIO) */
         .card-retained {
             background-color: #1a1a1a !important;
             border: 2px solid #000 !important;
@@ -238,7 +236,7 @@
         .card-retained strong { color: #fff !important; }
         .card-retained span { color: #d1d5db !important; }
         .card-retained small { background: #374151 !important; color: #9ca3af !important; }
-        .card-retained .profile-pic { filter: grayscale(100%) opacity(0.4); } /* Câmera em P&B para dar ar de inativa */
+        .card-retained .profile-pic { filter: grayscale(100%) opacity(0.4); }
 
         .profile-pic {
             width: 80px;
@@ -264,13 +262,11 @@
             transition: background 0.3s;
         }
 
-        /* Botão Avaria */
         .status-ok { background-color: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; margin-top: 8px;}
         .status-ok:hover { background-color: #cbd5e1; }
         .status-alert { background-color: #b91c1c; color: white; animation: pulse 2s infinite; margin-top: 8px;}
         .status-alert:hover { background-color: #991b1b; }
 
-        /* Botões Checklist (Divididos) */
         .btn-group { display: flex; gap: 5px; margin-top: 5px; }
         
         .chk-uncheck { background-color: #f8fafc; color: #64748b; border: 1px dashed #94a3b8; flex: 1; }
@@ -278,7 +274,6 @@
         .chk-checked { background-color: #10b981; color: white; flex: 1; border: 1px solid #059669; }
         .chk-checked:hover { background-color: #059669; }
 
-        /* Botões Retido/Permanente */
         .ret-uncheck { background-color: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; flex: 1; }
         .ret-uncheck:hover { background-color: #e2e8f0; }
         .ret-checked { background-color: #000; color: #ffd700; flex: 1; border: 1px solid #ffd700; }
@@ -424,7 +419,7 @@
             { serial: "J16658680", num: "37" }, { serial: "J24884140", num: "38" }, { serial: "J32970487", num: "39" }, { serial: "J31490071", num: "40" },
             { serial: "J26650212", num: "41" }, { serial: "J30912782", num: "42" }, { serial: "J32343801", num: "43" }, { serial: "J15597153", num: "44" },
             { serial: "J32343817", num: "45" }, { serial: "J30313360", num: "46" }, { serial: "J30313246", num: "47" }, { serial: "J32841854", num: "48" },
-            { serial: "J30912767", num: "49" }, { serial: "J32343883", num: "50" }, { serial: "J32343611", num: "51" }, { serial: "J31490047", num: "52" },
+            { serial: "J30912767", num: "49" }, { serial: "J30313780", num: "50" }, { serial: "J32343611", num: "51" }, { serial: "J31490047", num: "52" },
             { serial: "J14263648", num: "53" }, { serial: "J32343797", num: "54" }, { serial: "J32970464", num: "55" }, { serial: "J32841809", num: "56" },
             { serial: "J32343881", num: "57" }, { serial: "J32841804", num: "58" }, { serial: "J32343524", num: "59" }, { serial: "J31489939", num: "60" },
             { serial: "J32841767", num: "61" }, { serial: "J32841816", num: "62" }, { serial: "J32841887", num: "63" }, { serial: "J30313272", num: "64" },
@@ -442,6 +437,29 @@
         let currentSerial = null;
         let filtroFaltantesAtivo = false;
 
+        // --- CONFIGURAÇÃO DE SINCRONIZAÇÃO COM PLANILHA ---
+        const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbyaHjk3sjAOFvu3wsoC70pULSmhx5JS5Hy6Wr7dFCT9qCeLr5kQ8i67aHc5RJrLoxYt6g/exec";
+
+        function getNumBySerial(serial) {
+            const cam = cameras.find(c => c.serial === serial);
+            return cam ? cam.num : "-";
+        }
+
+        function registrarNaPlanilha(acao, serial, num, detalhes) {
+            if (!URL_GOOGLE_SCRIPT) return;
+
+            fetch(URL_GOOGLE_SCRIPT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    acao: acao,
+                    serial: serial,
+                    numero: num,
+                    detalhes: detalhes
+                })
+            }).catch(err => console.error("Erro ao enviar para planilha:", err));
+        }
+
         function renderList() {
             listElement.innerHTML = ""; 
             let qtdConferidas = 0;
@@ -452,7 +470,6 @@
                 let isChecked = localStorage.getItem('chk_' + cam.serial) === 'true';
                 let isRetained = localStorage.getItem('ret_' + cam.serial) === 'true';
                 
-                // Se está retida, não pode estar conferida no turno
                 if (isRetained) {
                     qtdRetidas++;
                     if(isChecked) {
@@ -463,10 +480,8 @@
                     qtdConferidas++;
                 }
 
-                // Lógica de Ocultar Faltantes (Esconde quem tá conferida e quem é permanente da tela)
                 if (filtroFaltantesAtivo && (isChecked || isRetained)) return;
 
-                // 1. Estilo da Avaria
                 let btnObsClass = "status-ok";
                 let btnObsText = "Verificar / Relatar";
                 if (savedObs && savedObs.trim() !== "") {
@@ -474,16 +489,13 @@
                     btnObsText = "⚠️ VER OBS/AVARIA";
                 }
 
-                // 2. Estilo do Card Principal
                 let cardClass = "";
                 if (isRetained) cardClass = "card-retained";
                 else if (isChecked) cardClass = "card-checked";
 
-                // 3. Estilo Botão Check
                 let btnChkClass = isChecked ? "chk-checked" : "chk-uncheck";
                 let btnChkText = isChecked ? "✅ Conferida" : "⚪ Conferir";
 
-                // 4. Estilo Botão Retida
                 let btnRetClass = isRetained ? "ret-checked" : "ret-uncheck";
                 let btnRetText = isRetained ? "⚫ Retida" : "Reter";
 
@@ -514,9 +526,11 @@
 
         function toggleCheck(serial) {
             const isChecked = localStorage.getItem('chk_' + serial) === 'true';
-            if (isChecked) localStorage.removeItem('chk_' + serial);
-            else localStorage.setItem('chk_' + serial, 'true');
-            
+            if (isChecked) {
+                localStorage.removeItem('chk_' + serial);
+            } else {
+                localStorage.setItem('chk_' + serial, 'true');
+            }
             renderList();
             executarBusca(); 
         }
@@ -527,14 +541,13 @@
                 localStorage.removeItem('ret_' + serial);
             } else {
                 localStorage.setItem('ret_' + serial, 'true');
-                localStorage.removeItem('chk_' + serial); // Remove do checklist diário se for retida
+                localStorage.removeItem('chk_' + serial);
             }
             renderList();
             executarBusca();
         }
 
         function atualizarPainelResumo(conferidas, retidas, total) {
-            // As faltantes são o total MENOS o que tá conferido e MENOS o que é Permanente/Retido
             const faltam = total - conferidas - retidas;
             document.getElementById('summary-text').innerHTML = 
                 `Total: <strong>${total}</strong> | <span class="conferidas">✅ ${conferidas}</span> | <span class="retidas">⚫ ${retidas}</span> | <span class="faltam">❌ Faltam: ${faltam}</span>`;
@@ -558,7 +571,6 @@
             if(confirm("ATENÇÃO: Deseja iniciar uma nova conferência de turno? Isso vai zerar as câmeras 'Conferidas', mas manterá as 'Retidas/Permanentes' intocadas.")) {
                 cameras.forEach(cam => {
                     localStorage.removeItem('chk_' + cam.serial);
-                    // Não removemos o 'ret_' (Retidas) porque baixa/extravio é permanente.
                 });
                 renderList();
                 executarBusca();
@@ -584,7 +596,6 @@
         
         document.getElementById('search-input').addEventListener('keyup', executarBusca);
 
-        // --- EXPORTAR E IMPORTAR COM OS NOVOS DADOS ---
         function toggleMenu() { document.getElementById("dropdownMenu").classList.toggle("show"); }
 
         window.onclick = function(event) {
@@ -603,7 +614,6 @@
             const dadosExtra = {};
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                // Salva avarias (obs_), checklist (chk_) e retenções permanentes (ret_)
                 if (key.startsWith('obs_') || key.startsWith('chk_') || key.startsWith('ret_')) {
                     dadosExtra[key] = localStorage.getItem(key);
                 }
@@ -636,12 +646,6 @@
                             localStorage.setItem(key, value);
                         }
                     }
-                    // Retrocompatibilidade
-                    if (importedData.observations) {
-                        for (const [key, value] of Object.entries(importedData.observations)) {
-                            localStorage.setItem(key, value);
-                        }
-                    }
                     alert("Backup restaurado com sucesso!");
                     location.reload(); 
                 } catch (err) {
@@ -651,7 +655,6 @@
             reader.readAsText(file);
         }
 
-        // --- MODAIS ---
         function abrirModalRegistro() {
             document.getElementById("registerModal").style.display = "block";
             document.getElementById("newSerial").value = "";
@@ -664,6 +667,7 @@
             if (s === "" || n === "") return alert("Preencha Serial e Número.");
             cameras.push({ serial: s, num: n });
             localStorage.setItem('myCameras', JSON.stringify(cameras));
+            
             renderList();
             fecharModal('registerModal');
             alert("Câmera " + n + " registrada com sucesso!");
@@ -679,9 +683,22 @@
 
         function salvarObs() {
             if(!currentSerial) return;
-            const texto = document.getElementById("obsInput").value.trim();
-            if(texto) localStorage.setItem('obs_' + currentSerial, texto);
-            else localStorage.removeItem('obs_' + currentSerial);
+            
+            const textoInput = document.getElementById("obsInput").value.trim();
+            const textoSalvo = localStorage.getItem('obs_' + currentSerial) || "";
+            const num = getNumBySerial(currentSerial);
+
+            // Só processa e envia para a planilha se o usuário realmente alterou algo no texto
+            if (textoInput !== textoSalvo) {
+                if(textoInput) {
+                    localStorage.setItem('obs_' + currentSerial, textoInput);
+                    registrarNaPlanilha("Observação", currentSerial, num, "Nova Avaria/Obs relatada: " + textoInput);
+                } else {
+                    localStorage.removeItem('obs_' + currentSerial);
+                    registrarNaPlanilha("Observação", currentSerial, num, "Avaria/Obs foi limpa/resolvida.");
+                }
+            }
+            
             fecharModal('obsModal');
             renderList(); 
         }
@@ -693,7 +710,6 @@
 
         function fecharModal(modalId) { document.getElementById(modalId).style.display = "none"; }
 
-        // INICIALIZAÇÃO
         renderList(); 
     </script>
 </body>
